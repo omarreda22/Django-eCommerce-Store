@@ -12,7 +12,7 @@ Admin area to manage customers, products & orders
 
 Product search, carousel, pagination & more
 
-### View Video Full Demo On [Youtube](https://www.youtube.com/watch?v=lwWEabH0-lY)
+### View Full Video Demo On [Youtube](https://www.youtube.com/watch?v=lwWEabH0-lY)
 
 <br>
 <br>
