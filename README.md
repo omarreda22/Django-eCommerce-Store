@@ -12,10 +12,10 @@ Admin area to manage customers, products & orders
 
 Product search, carousel, pagination & more
 
-<br>
 
 ### View Full Video Demo On [Youtube](https://www.youtube.com/watch?v=lwWEabH0-lY)
 
+<br>
 
 
 ## How to install on Windows
