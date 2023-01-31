@@ -12,7 +12,7 @@ Admin area to manage customers, products & orders
 
 Product search, carousel, pagination & more
 
-## View Video Full Demo On [Youtube](https://www.youtube.com/watch?v=lwWEabH0-lY)
+### View Video Full Demo On [Youtube](https://www.youtube.com/watch?v=lwWEabH0-lY)
 
 
 
@@ -80,7 +80,7 @@ pip install -r requirements.txt
 
 
 
-## Need help? Found a bug? Message me!
+### Need help? Found a bug? Message me!
 
 
 ### Enjoy^^
