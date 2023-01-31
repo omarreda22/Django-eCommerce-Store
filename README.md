@@ -14,7 +14,9 @@ Product search, carousel, pagination & more
 
 ### View Video Full Demo On [Youtube](https://www.youtube.com/watch?v=lwWEabH0-lY)
 
-
+<br>
+<br>
+<br>
 
 ## How to install on Windows
 1. clone this project
