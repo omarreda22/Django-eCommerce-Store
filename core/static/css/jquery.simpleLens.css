@@ -1,0 +1,58 @@
+/* CSS Document */
+.simpleLens-container{
+    display: table;
+    position: relative;
+}
+
+.simpleLens-big-image-container {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+	position:relative;
+    height: 300px;
+    width: 350px;
+}
+.simpleLens-big-image {
+    width: 100%;
+}
+.simpleLens-lens-image {
+    height: auto !important;
+    width: 350px;
+    display: inline-block;
+    text-align: center;
+    margin:0;
+    box-shadow:none;
+    float:none;
+    position:relative;
+}
+.simpleLens-mouse-cursor{
+	background-color:#fff;
+	opacity:0.5;
+	filter: alpha(opacity = 50);
+	position:absolute;
+	top:0;
+	border: 1px solid #fe5858;
+	left:0;
+	cursor:move;
+}
+.simpleLens-lens-element {
+    background-color: #EEEEEE;
+    height: 350px;
+    left: 105%;
+	border: 4px solid #fe5858;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 350px;
+    z-index: 9999;
+	transition:all 3s ease 0s;
+    text-align: center;
+}
+
+.simpleLens-lens-element img{
+    position:relative;
+    top:0;
+    left:0;
+    width:auto !important;
+    max-width:none !important;
+}

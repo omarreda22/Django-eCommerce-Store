@@ -1,0 +1,178 @@
+{% extends '../../base.html' %}
+{% load static %}
+{% block title %}Cart{% endblock title %}
+{% block content %}
+<div  class="pages-title section-padding">
+			<div  class="container">
+				<div  style="background:#40394a" class="row">
+					<div class="col-xs-12">
+						<div class="pages-title-text text-center">
+							<h2 style="color:#f4cca4">Cart</h2>
+							<ul class="text-left">
+								<li><a style="color:#d99879" href="\">Home </a></li>
+								<li style="color:#d99879"><span> // </span>Cart</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- pages-title-end -->
+		<!-- cart content section start -->
+		{% if not cart_items %}
+		<div style="font-size:18px; margin-bottom:300px;margin-top:30px" class="container alert alert-info text-center" role="alert">
+		<b>Your Cart Is Empty,&nbsp;&nbsp; <a href="{% url 'shop:shop' %}" style="color:#21094e;text-decoration: underline;">Go To Shop<a></b>
+		</div>
+		
+		{% else %}
+		<section style="background:#1c1427" class="pages cart-page section-padding">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div style="border-radius:20px;" class="table-responsive padding60">
+							<table class="wishlist-table text-center">
+								<thead>
+									<tr>
+										<th style="border-radius:20px 0 0 20px;">Image</th>
+										<th>Name</th>
+										<th>Price</th>
+										<th>quantity</th>
+										<th>Total Price</th>
+										<th style="border-radius:0 20px 20px 0;">Remove</th>
+									</tr>
+								</thead>
+								<tbody>
+                                    {% for cart_item in cart_items %}
+									<tr>
+										<td class="td-img text-center">
+											<a href="{{cart_item.product.get_prodcut_details_url}}"><img style="border-radius:10px;" width="100" height="100" src="{{cart_item.product.image.url}}" alt="Add Product" /></a>
+											
+										</td>
+										<td>
+										<div class="items-dsc">
+											<h5><a href="{{cart_item.product.get_prodcut_details_url}}">{{cart_item.product.name}}</a></h5>
+
+											{% if cart_item.variation.all %}
+												{% for item in cart_item.variation.all %}
+												<p>{{item.variation_category | capfirst}} : {{item.variation_value | capfirst}}</p>
+												{% endfor %}
+											{% endif %}
+											
+										</div>
+										</td>
+										<td>${{cart_item.product.price}}</td>
+										<td>
+										<div class="plus-minus" >
+										<form style="" action="{% url 'cart:add_cart' cart_item.product.id %}" method="POST">
+											<a style="background:#232323;color:#fff;height:35px;margin-top:-5px;width:40px; border-radius: 4px;" href="{% url 'cart:remove_cart' cart_item.product.id cart_item.id %}" ><i class="fa fa-minus"></i></a>
+											<input style=" height:35px"  class="form-control" value="{{cart_item.quantity}}" readonly>
+											<!-- <a style="background:#232323;color:#fff" href="{% url 'cart:add_cart' cart_item.product.id %}" >+</a> -->
+											<!--
+											<form action="{% url 'cart:add_cart' cart_item.product.id %}" method="POST">
+												{% csrf_token %}
+												{% for item in cart_item.variation.all %}
+												<input type="hidden" name={{ item.variation_category | capfirst }} value={{ item.variation_value |capfirst }}>
+												{% endfor %}
+												<button class="btn btn-light" type="submit" id="button-minus"> <i class="fa fa-plus"></i> </button>
+											</form>
+											-->
+											{% csrf_token %}
+											{% for item in cart_item.variation.all %}
+											<input type="hidden" name={{ item.variation_category | capfirst }} value={{ item.variation_value |capfirst }}>
+											{% endfor %}
+											<button style="background:#232323;color:#fff; height:35px; margin-top:-3px " class="btn btn-light" type="submit" id="button-minus"> <i class="fa fa-plus"></i> </button>
+											</form>
+										</div>
+										</td>
+										<td >
+											<strong style="color:#f4cca4">${{cart_item.sub_total}}</strong>
+										</td>
+										<td ><a href="{% url 'cart:remove_cart_item' cart_item.product.id cart_item.id %}" ><i style="background:#ba135d;color:#f4cca4" onclick="return confirm('Are you really want delete this?')" class="mdi mdi-close"></i></a></td>
+									</tr>
+									{% endfor %}
+									<tr>
+									</tr>
+								</tbody>
+							</table><br><br><br>
+							<div class="cart-form-text pay-details table-responsive">
+								<table>
+									<tbody style="color:#f4cca4">
+										<tr>
+											<th style="font-size:18px">Cart Subtotal</th>
+											<td style="font-size:18px">${{total}}</td>
+										</tr>
+										<tr>
+											<th style="font-size:18px">Shipping and Handing</th>
+											<td style="font-size:18px">${{handing}}</td>
+										</tr>
+										<tr>
+											<th style="font-size:18px">Vat</th>
+											<td style="font-size:18px">${{vat}}</td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<th style="color:#d99879; font-size:22px" class="tfoot-padd">Order total</th>
+											<td style="color:#d99879; font-size:22px" class="tfoot-padd">${{order_total}}</td>
+										</tr>
+									</tfoot>
+								</table>
+								<br><br><br>
+								<div  class="list-btn text-center">
+									<a href="{% url 'orders:checkout' %}" class="btn" style="background:#f4cca4;color:#1c1427; text-transform:capitalize; font-size:18px; width:60%"><b>Checkout</b></a><br><br>
+									<a href="{% url 'shop:shop' %}" class="btn btn-warning"    style=" background:none;color:#f4cca4; text-transform:capitalize; font-size:18px; width:60%">continue shopping</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+                <br>
+				<!--
+				<br>
+				<div class="row margin-top">
+					
+					<div  class="col-sm-7 col-text-center">
+						<div style="background:#40394a; color:#fff" class="single-cart-form padding60">
+							<div class="log-title text-center">
+								<h3 style="color:#d99879"><strong>payment details</strong></h3>
+							</div>
+							<div class="cart-form-text pay-details table-responsive">
+								<table>
+									<tbody style="color:#f4cca4">
+										<tr>
+											<th>Cart Subtotal</th>
+											<td>${{total}}</td>
+										</tr>
+										<tr>
+											<th>Shipping and Handing</th>
+											<td>${{handing}}</td>
+										</tr>
+										<tr>
+											<th>Vat</th>
+											<td>${{vat}}</td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<th style="color:#d99879" class="tfoot-padd">Order total</th>
+											<td style="color:#d99879" class="tfoot-padd">${{order_total}}</td>
+										</tr>
+										
+								</tfoot>
+									
+								</table>
+								
+								<hr>
+								<div  class="list-btn text-center">
+									<a href="{% url 'orders:payment_method' %}" class="btn btn-warning" style="background:#f4cca4;color:#1c1427; text-transform:capitalize; font-size:18px; width:65%"><b>Checkout</b></a><br><br>
+									<a href="{% url 'shop:shop' %}" class="btn btn-warning"    style=" background:none;color:#f4cca4; text-transform:capitalize; font-size:18px; width:65%">continue shopping</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				-->
+			</div>
+		</section>
+		{% endif %}
+{% endblock content %}

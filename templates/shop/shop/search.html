@@ -1,0 +1,92 @@
+{% extends '../../base.html' %}
+{% load static %}
+{% block title %}Search{% endblock title %}
+{% block content %}
+<!-- pages-title-start -->
+        {% if products_count <= 0 %}
+        <div style="font-size:18px; margin-bottom:300px;margin-top:30px" class="container alert alert-info text-center" role="alert">
+		<b>No Results,&nbsp;&nbsp; <a href="{% url 'shop:shop' %}" style="color:#21094e;text-decoration: underline;">Go To Shop<a></b>
+		</div>
+        {% else %}
+		<div class="pages-title section-padding">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="pages-title-text text-center">
+							<h2 style="text-transform: capitalize;color:#f4cca4">Search Results</h2>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- pages-title-end -->
+		<!-- shop content section start -->
+		<div style="background:#1c1427" class="pages products-page section-padding text-center">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="right-products">
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="section-title clearfix">
+										<ul>
+											
+											<li style="color:#f4cca4; font-size:18px" class="sort-by floatright">
+												{{products_count}} Results
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="grid-content">
+                                {% for product in products %}
+									<div class="col-xs-12 col-sm-6 col-md-3">
+										<div style="background:#40394a" class="single-product">
+											<div class="product-img">
+												{% if product.discount != 0.00 %}
+                                                <div class="pro-type">
+                                                    <span>Discount</span>
+                                                </div>
+                                                {% endif %}
+                                                {% if product.new %}
+                                                <div style="background:red" class="pro-type">
+                                                    <span>New</span>
+                                                </div>
+                                                {% endif %}
+												<a href="{{product.get_prodcut_details_url}}"><img style="width:270; height:350px" src="{{product.image.url}}" alt="Product Title" /></a>
+												<div class="actions-btn">
+													<a href="{% url 'cart:add_cart' product.id %}"><i class="mdi mdi-cart"></i></a>
+													<a href="{{product.get_prodcut_details_url}}" ><i class="mdi mdi-eye"></i></a>
+												</div>
+											</div>
+											<div class="product-dsc">
+												<p><a href="{{product.get_prodcut_details_url }}">{{product.name}}</a></p>
+												
+												<span>${{product.price}}</span><br><br>
+												<div style="font-size:16px" class="rating-star">
+													<span>
+													<i class="fa fa-star{% if product.averageRating < 0.5 %}-o{% elif product.averageRating >= 0.5 and product.averageRating < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+													<i class="fa fa-star{% if product.averageRating < 1.5 %}-o{% elif product.averageRating >= 1.5 and product.averageRating < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+													<i class="fa fa-star{% if product.averageRating < 2.5 %}-o{% elif product.averageRating >= 2.5 and product.averageRating < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+													<i class="fa fa-star{% if product.averageRating < 3.5 %}-o{% elif product.averageRating >= 3.5 and product.averageRating < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+													<i class="fa fa-star{% if product.averageRating < 4.5 %}-o{% elif product.averageRating >= 4.5 and product.averageRating < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+													&nbsp;<span style="font-size:16px">(<b>{{product.countReview}}</b> reviews)</span>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- shop content section end -->
+        {% endif %}
+{% endblock %}

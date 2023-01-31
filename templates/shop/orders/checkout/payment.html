@@ -1,0 +1,213 @@
+{% extends '../../../base.html' %}
+{% load static %}
+{% block title %}Payment{% endblock title %}
+{% block content %}
+<!-- pages-title-start -->
+<div class="pages-title section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="pages-title-text text-center">
+          <h2 style="color:#f4cca4">Payment</h2>
+          <ul class="text-left">
+            <li><a style="color:#d99879" href="\">Home </a></li>
+            <li style="color:#d99879"><span> // </span>Chcekout</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- pages-title-end -->
+<!-- Checkout content section start -->
+<section style="margin-bottom:50;background:#1c1427" class="pages checkout section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div style="border-radius:20px;" class="padding60">
+          
+          <div class="log-title text-center">
+            <h2><strong style="color:#d99879">Billing Address</strong></h2><br>
+          </div>
+          <div class="cart-form-text pay-details table-responsive text-center">
+            <table class="tablee" style="width:100%" >
+              <thead>
+                
+              </thead>
+              <tbody>
+                
+                <tr>
+                  <th style="font-size:15px">Name</th>
+                  <td style="font-size:15px">{{order.full_name}}</td>
+                </tr>
+                <tr>
+                  <th style="font-size:15px">Email</th>
+                  <td style="font-size:15px">{{order.email}}</td>
+                </tr>
+                <tr>
+                  <th style="font-size:15px">Phone Number</th>
+                  <td style="font-size:15px">{{order.phone}}</td>
+                </tr>
+                <tr>
+                  <th style="font-size:15px">Address</th>
+                  <td style="font-size:15px">{{order.address}}</td>
+                </tr>
+                <tr>
+                  <th style="font-size:15px">City</th>
+                  <td style="font-size:15px">{{order.city}}</td>
+                </tr>
+                <tr>
+                  <th style="font-size:15px">Country</th>
+                  <td style="font-size:15px">{{order.country}}</td>
+                </tr>
+                {% if order.order_note %}
+                <tr>
+                  <th style="font-size:15px">Order Note</th>
+                  <td style="font-size:15px">{{order.order_note}}</td>
+                </tr>
+                {% endif %}
+              </tbody>
+              <br>
+            </table><br><br>
+            <div class="log-title text-center">
+              <h2><strong style="color:#d99879">Payment Method</strong></h2><br>
+            </div>
+          <h3 style="font-size:15px; margin-left:30px" class="floatleft">Paypal</h3><br><br>
+          </div>
+        </div><br>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div style="border-radius:20px" class="padding60">
+          <div class="log-title text-center">
+            <h2><strong style="color:#d99879">order</strong></h2>
+          </div><br><br>
+          <div class="cart-form-text pay-details table-responsive text-center">
+            <table style="width:100%;" >
+              <thead style="border-radius:20px ;">
+                <tr >
+                  <th style="color:#f4cca4;background:#1c1427;border-radius:20px 0 0 20px ;">Product</th>
+                  <td style="color:#f4cca4;background:#1c1427;border-radius:0 20px 20px 0 ;">Total</td>
+                </tr>
+              </thead>
+              <tbody>
+                {% for cart_item in cart_items %}
+                <tr>
+                  <th>{{cart_item.product.name}} x {{cart_item.quantity}}</th>
+                  <td>${{cart_item.sub_total}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <th>Shipping and Handing</th>
+                  <td>${{handing}}</td>
+                </tr>
+                <tr>
+                  <th>Vat</th>
+                  <td>${{vat}}</td>
+                </tr>
+                <tr style="color:#d99879">
+                  <th>Order total</th>
+                  <td>${{order_total}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+              </tfoot>
+            </table>
+            <div style="width:100%" class="submit-text">
+              <!--
+                <button href="#" class="btn btn-warning"
+                style="background:#f4cca4;color:#1c1427; width:100% ; text-transform: capitalize;font-size:15px"><b>Place
+                  Order</b></button>
+              -->
+              <div id="paypal-button-container"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+
+var amount = "{{ order_total }}"
+var url = "{% url 'orders:payments' %}"
+var csrftoken = getCookie('csrftoken');
+var orderID = "{{order.order_number}}"
+var payment_method = 'PayPal'
+var redirect_url = "{% url 'orders:order_complete' %}"
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+      // Customize button (optional)
+       
+        style: {
+            // color:  'blue',
+            shape:  'rect',
+            label:  'pay',
+            height: 40
+        },
+        
+        // Set up the transaction
+        createOrder: function(data, actions) {
+          
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: amount,
+                    }
+                }]
+            });
+            
+        },
+
+		// Finalize the transaction
+		onApprove: function(data, actions) {
+			return actions.order.capture().then(function(details) {
+				// Show a success message to the buyer
+				console.log(details);
+				sendData();
+				function sendData(){
+					fetch(url, {
+						method : "POST",
+						headers: {
+							"Content-type": "application/json",
+							"X-CSRFToken": csrftoken,
+						},
+						body: JSON.stringify({
+							orderID: orderID,
+							transID: details.id,
+							payment_method: payment_method,
+							status: details.status,
+						}),
+					})
+				  .then((response) => response.json())
+				  .then((data) => {
+						window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
+					});
+				}
+        // alert('Transaction completed by ' + details.payer.name.given_name + '!');
+			});
+		}
+
+
+	}).render('#paypal-button-container');
+</script>
+
+{% endblock content %}

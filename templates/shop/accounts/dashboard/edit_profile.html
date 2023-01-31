@@ -1,0 +1,102 @@
+{% extends '../../../base.html' %}
+{% load static %}
+{% block title %}Edit Profile{% endblock title %}
+{% block content %}
+
+<div  class="pages-title section-padding">
+    <div  class="container">
+        <div  style="background:#40394a" class="row">
+            <div class="col-xs-12">
+                <div class="pages-title-text text-center">
+                    <h2 style="color:#f4cca4">Edit Profile</h2>
+                    <ul class="text-left">
+                        <li><a style="color:#d99879" href="\">Home </a></li>
+                        <li style="color:#d99879"><span> // </span>Cart</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section style="background:#1C1427" class="section-conten padding-y bg">
+    <br><br>
+  
+<span style="font-size:16px"><b> {% include "includes/alerts.html" %} </b></span>
+<div class="container">
+	<div class="row">
+    {% include "includes/dashboard_slider.html" %}
+	<main class="col-md-9">
+    <form style="background:#40394A; padding:20px;border-radius:10px" action="{% url 'accounts:edit_profile' %}" method="POST" enctype="multipart/form-data">
+		<article class="card">
+		<header class="card-header text-center">
+            <strong style="font-size:20px;float:left" class="d-inline-block mr-3">Edit your profile</strong>
+            <input style="float:right;width:20%;color:#1C1427;font-size:18px;font-weight: bold;" type="submit" value="Edit" class="btn btn-warning">
+        </header>
+		<div class="card-body">
+			
+            <div class="text-center">
+				<img src="{{userprofile.profile_picture.url}}" alt="Profile Picture" width="100" style="border-radius:50px;">
+			</div>
+            <br>
+			<div class="row">
+			<div class="col-md-12">
+				
+					{% csrf_token %}
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label>First Name</label>
+							{{user_form.first_name}}
+						</div>
+						<div class="form-group col-md-6">
+							<label>Last Name</label>
+							{{user_form.last_name}}
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label>Phone Number</label>
+							{{user_form.Phone_number}}
+						</div>
+						<div class="form-group col-md-6">
+							<label>Profile Picture</label>
+							{{profile_form.profile_picture}}
+						</div>
+					</div>
+					<div style="margin-bottom:10px" class="col-md-12">
+						<label>Address</label>
+						{{profile_form.address}}
+					</div><br>
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label>City</label>
+							{{profile_form.city}}
+						</div>
+						<div class="form-group col-md-4">
+							<label>State</label>
+							{{profile_form.state}}
+						</div>
+						<div class="form-group col-md-4">
+							<label>Country</label>
+							{{profile_form.country}}
+						</div>
+					</div>
+					
+				
+			</div>
+
+			</div> <!-- row.// -->
+		</div> <!-- card-body .// -->
+
+		</article> <!-- order-group.// -->
+        </form>
+	</main>
+</div> <!-- row.// -->
+</div>
+
+
+<br>
+</section>
+
+
+<!-- ========================= SECTION CONTENT END// ========================= -->
+{% endblock content %}

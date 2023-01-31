@@ -1,0 +1,76 @@
+{% extends '../../../base.html' %}
+{% load static %}
+{% block title %}My Orders{% endblock title %}
+{% block content %}
+
+<div  class="pages-title section-padding">
+    <div  class="container">
+        <div  style="background:#40394a" class="row">
+            <div class="col-xs-12">
+                <div class="pages-title-text text-center">
+                    <h2 style="color:#f4cca4">My Orders</h2>
+                    <ul class="text-left">
+                        <li><a style="color:#d99879" href="\">Home </a></li>
+                        <li style="color:#d99879"><span> // </span>Cart</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section style="background:#1C1427" class="section-conten padding-y bg">
+    <br><br>
+    <span style="font-size:25px"><b> {% include "includes/alerts.html" %} </b></span>
+  <div class="container">
+    
+    <div class="row">
+      {% include "includes/dashboard_slider.html" %}
+
+      <main style="background:#40394A;border-radius:10px" class="col-md-9">
+        <article class="card"><br>
+          <header class="card-header text-center">
+            <strong style="font-size:25px" class="d-inline-block mr-3">Total Orders : {{orders_count}}</strong>
+          </header>
+          <br>
+          {% if orders_count >= 1 %}
+          <table class="table table-hover text-center">
+            <thead >
+              <tr >
+                <th style="background:#D99879;color:#1C1427;font-size:16px;border-radius:10px 0  0 0 ; " scope="col">Order Number</th>
+                <th style="background:#D99879;color:#1C1427;font-size:16px" scope="col">Total Price</th>
+                <th style="background:#D99879;color:#1C1427;font-size:16px" scope="col">Date</th>
+                <th style="background:#D99879;color:#1C1427;font-size:16px; border-radius:0 10px 0 0 " scope="col"></th>
+              </tr>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in orders %}
+              <tr class='hav'>
+                <th style="background:#1C1427;font-size:16px" class="text-center" scope="row">{{order.order_number}}</th>
+                <td style="background:#1C1427;font-size:16px" >${{order.order_total}}</td>
+                <td style="background:#1C1427;font-size:16px" >{{order.order_created}}</td>
+                <td style="background:#1C1427;font-size:16px"><b><a class="btn" style="background:#F4CCA4; color:#000" href='{% url "accounts:order_detail" order.order_number%}'><b>View Details</b></a></b></td>
+              </tr>
+              
+              {% endfor %}
+
+            </tbody>
+
+          </table>
+          <br>
+          <div>
+          {% endif %}
+        </article> <!-- order-group.// -->
+      </main>
+      <br>
+    </div> <!-- row.// -->
+  </div>
+
+</div>
+
+<br>
+</section>
+
+
+<!-- ========================= SECTION CONTENT END// ========================= -->
+{% endblock content %}
