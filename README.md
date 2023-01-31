@@ -16,7 +16,6 @@ Product search, carousel, pagination & more
 
 ### View Full Video Demo On [Youtube](https://www.youtube.com/watch?v=lwWEabH0-lY)
 
-<br>
 
 
 ## How to install on Windows
@@ -58,7 +57,6 @@ pip install -r requirements.txt
  2. create new admin user
  2. go to [localhost:8000/admin](http://localhost:8000/admin)
 
-<br>
 
 ## Some of feature in this store
 
@@ -83,11 +81,10 @@ pip install -r requirements.txt
 - Easy to manage the site
 
 
-<br>
 
 ### Need help? Found a bug? Message me!
 
-<br>
+
 
 <br>
 
