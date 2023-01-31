@@ -16,7 +16,7 @@ Product search, carousel, pagination & more
 
 <br>
 <br>
-<br>
+
 
 ## How to install on Windows
 1. clone this project
