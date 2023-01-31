@@ -12,9 +12,10 @@ Admin area to manage customers, products & orders
 
 Product search, carousel, pagination & more
 
+<br>
+
 ### View Full Video Demo On [Youtube](https://www.youtube.com/watch?v=lwWEabH0-lY)
 
-<br>
 <br>
 
 
@@ -45,6 +46,7 @@ pip install -r requirements.txt
  ### To install on Unix/macOS  [see this document](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments)
  
  
+ <br>
  
  
  
@@ -56,7 +58,7 @@ pip install -r requirements.txt
  2. create new admin user
  2. go to [localhost:8000/admin](http://localhost:8000/admin)
 
-
+<br>
 
 ## Some of feature in this store
 
@@ -81,8 +83,12 @@ pip install -r requirements.txt
 - Easy to manage the site
 
 
+<br>
 
 ### Need help? Found a bug? Message me!
 
+<br>
+
+<br>
 
 ### Enjoy^^
